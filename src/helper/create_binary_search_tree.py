@@ -9,6 +9,8 @@ def insert_into_bst(root, val):
     """Insert value into BST"""
     if not root:
         return TreeNode(val)
+    if val is None:
+        return root
 
     if val < root.val:
         root.left = insert_into_bst(root.left, val)
@@ -36,6 +38,62 @@ def list_to_bst(nums):
 
     return root
 
+
+def bst_to_list_preorder(root):
+    """
+    Convert BST to list using preorder traversal
+    Root → Left → Right
+
+    Time: O(N), Space: O(N)
+    """
+    result = []
+
+    def preorder(node):
+        if node:
+            result.append(node.val)  # Visit root first
+            preorder(node.left)  # Visit left
+            preorder(node.right)  # Visit right
+
+    preorder(root)
+    return result
+
+
+def bst_to_list_inorder(root):
+    """
+    Convert BST to sorted list using inorder traversal
+    Left → Root → Right
+
+    Time: O(N), Space: O(N)
+    """
+    result = []
+
+    def inorder(node):
+        if node:
+            inorder(node.left)  # Visit left
+            result.append(node.val)  # Visit root
+            inorder(node.right)  # Visit right
+
+    inorder(root)
+    return result
+
+
+def bst_to_list_postorder(root):
+    """
+    Convert BST to list using postorder traversal
+    Left → Right → Root
+
+    Time: O(N), Space: O(N)
+    """
+    result = []
+
+    def postorder(node):
+        if node:
+            postorder(node.left)  # Visit left
+            postorder(node.right)  # Visit right
+            result.append(node.val)  # Visit root last
+
+    postorder(root)
+    return result
 
 if __name__ == "__main__":
     # Example usage
