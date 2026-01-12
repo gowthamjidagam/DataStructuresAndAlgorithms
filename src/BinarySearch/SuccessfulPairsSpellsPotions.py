@@ -47,11 +47,25 @@ class Solution(object):
             answer.append(m - index)
         return answer
 
+    def successfulPairs2(self, spells, potions, success):
+        sorted_spells = [(spell, index) for index, spell in enumerate(spells)]
+        potions.sort()
+        sorted_spells.sort()
+        n = len(potions)
+        potion_idx = n - 1
+        result = [0] * len(spells)
+        for spell, index in sorted_spells:
+            while potion_idx >=0 and spell * potions[potion_idx] >= success:
+                potion_idx -= 1
+            result[index] = n - (potion_idx + 1)
+        return result
+
 sol = Solution()
 spells = [5,1,3]
 potions = [1,2,3,4,5]
 success = 7
-spells = [3,1,2]
-potions = [8,5,8]
-success = 16
+# spells = [3,1,2]
+# potions = [8,5,8]
+# success = 16
 print(sol.successfulPairs(spells, potions, success))
+print(sol.successfulPairs2(spells, potions, success))
